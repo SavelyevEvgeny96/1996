@@ -27,7 +27,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
     @Override
-    public void createUsersTable() throws SQLException {
+    public void createUsersTable() {
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
 
@@ -38,6 +38,8 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.execute(sql);
 
 
+        }catch (SQLException ex){
+            ex.printStackTrace();
         }
     }
 
@@ -94,7 +96,7 @@ public class UserDaoJDBCImpl implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             List<User> resultUsers = new ArrayList<>();
             while (resultSet.next()) {
-                resultUsers.add(new User(resultSet.getString("NAME"),
+                resultUsers.add(new User(resultSet.getString("name"),
                         resultSet.getString("lastname"),
                         resultSet.getByte("age")));
 

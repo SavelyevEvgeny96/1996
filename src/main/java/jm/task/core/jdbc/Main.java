@@ -15,18 +15,14 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         UserService userService = new UserServiceImpl();
         userService.createUsersTable();
-        userService.saveUser("ef", "wed", (byte) 77);
-        userService.saveUser("ef", "wd", (byte) 7);
-        userService.saveUser("f", "wed", (byte) 77);
-        List<User> userList = userService.getAllUsers();
-        userList.forEach(System.out::println);
-        System.out.println("//////");
-        userService.removeUserById(2);
-
+        for (int i=0;i<4;i++){
+        userService.saveUser("name%d".formatted(i),"lastname%d".formatted(i),(byte)(20+i));}
+        System.out.println("User с именем - name добавлен в баззу данных ");
         List<User> userListd = userService.getAllUsers();
         userListd.forEach(System.out::println);
-//        userService.cleanUsersTable();
-//
+       userService.cleanUsersTable();
+       userService.dropUsersTable();
+
     }
 }
 
